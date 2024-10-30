@@ -1,0 +1,8 @@
+snpvcf : ''
+indelvcf : ''
+simGen: ''
+snps:
+indels: 
+seed:
+library:
+output:

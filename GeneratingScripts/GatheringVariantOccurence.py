@@ -4,14 +4,15 @@ Created on Fri Jul 14 12:38:06 2023
 
 @author: jillian
 """
-#Read in data
+#Read in generation settings
 settingsData = open('GenerationSettings.txt','r')
+
 #Loop through each line
 header = settingsData.readline()
 for line in settingsData:
     line = line.rstrip()
 #Remove enter
-    horse,seed1,seed2,coverage,frag = line.split('\t')
+    emp,seed1,coverage,frag = line.split('\t')
 #Split data into categories
 #Write slurm script 
     for x in range(2):

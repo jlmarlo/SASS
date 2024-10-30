@@ -13,7 +13,7 @@ rule genomecov:
 		"Python2"
 	shell:
 		'''
-			cd ~/neat-genreads/utilities
+			cd neat-genreads/utilities
 			bedtools genomecov \
 				-d \
 				-ibam {input.bam} \
@@ -34,7 +34,7 @@ rule computeGC:
 		"Python2"
 	shell:
 		'''
-			cd ~/neat-genreads/utilities
+			cd neat-genreads/utilities
 			python computeGC.py \
 				-r {params.reference} \
 				-i {input.genomecov} \
@@ -75,7 +75,7 @@ rule computeError:
 		"Python2"
 	shell:
 		'''
-			cd ~/neat-genreads/utilities
+			cd neat-genreads/utilities
 			python genSeqErrorModel.py \
 				-i {input.fastq1} \
 				-i2 {input.fastq2} \

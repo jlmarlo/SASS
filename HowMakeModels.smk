@@ -1,5 +1,4 @@
 #This script should be able to both make all the appropriate models and also generate variant VCFs.
-import pandas as pd
 Horses = open('SimulatingHorsesModels.txt','r')
 HorseIDs = Horses.read()
 HorseIDs = HorseIDs.split('\n')
@@ -26,7 +25,8 @@ rule all:
 			"/scratch.global/marlo072/Simulating90/BCFStats/Seed{Seed}InsertionStats.txt",
 			Seed=SeedList
 		)	
-
+		MakeFinalFiles
+		find_files
 
 
 include: "variantvcfs.smk"
