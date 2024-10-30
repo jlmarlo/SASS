@@ -9,6 +9,7 @@ SASS is a program built to provide reproducible methods for creating artificial 
 **R libraries required to run this code:**
 - ggplot2
 - tidyverse
+
 (libraries will be automatically installed if not already available)
 
 - BCFTools
@@ -19,15 +20,15 @@ SASS is a program built to provide reproducible methods for creating artificial 
 
 1. Collect Necessary Files
 
-- Reference Genome (FASTA) with index (.fai)
-- VCF with known SNPs
-- VCF with known Indels
-- 1 or more pairs of FASTQ files
-- 1 or more BAMS paired with FASTQ files
+	- Reference Genome (FASTA) with index (.fai)
+	- VCF with known SNPs
+	- VCF with known Indels
+	- 1 or more pairs of FASTQ files
+	- 1 or more BAMS paired with FASTQ files
 
 2. Create list of empirical samples
 
-A text file containing a list of unique identifiers that will be used to find fastq and bam files
+	A text file containing a list of unique identifiers that will be used to find fastq and bam files
 
 ```
 SampleA_R1.fastq.gz
@@ -51,6 +52,7 @@ git clone https://github.com/jlmarlo/SASS.git
 ```
 
 4. Download NEAT repository
+
 Original work done with SASS used version 2.0 of NEAT which is since become outdated. Future work will update SASS to work with most recent versions of NEAT
 
 ```
@@ -62,28 +64,28 @@ cd ..
 
 5. Edit config.yml file
 
-There are several fields in the config.yml file that must be modified for the program to be fully functional
+	There are several fields in the config.yml file that must be modified for the program to be fully functional
 
-- snpsvcf : pathway to VCF file with known SNPs
-- indelsvcf : pathway to VCF file with known indels
-- simGen : number of genomes to simulate
-- snps : total number of SNPs to be inserted into each genome (average number of SNPs that appear in species of interest)
-- indels : total number of indels to be inserted into each genome (average number of indels that appear in species of interest)
-- seed : random number from 1 - 1,000,000 to set seed for randomization
-- library : pathway to R package library where packages will be retrieved/downloaded
-- output : prefix used for output files
+	- snpsvcf : pathway to VCF file with known SNPs
+	- indelsvcf : pathway to VCF file with known indels
+	- simGen : number of genomes to simulate
+	- snps : total number of SNPs to be inserted into each genome (average number of SNPs that appear in species of interest)
+	- indels : total number of indels to be inserted into each genome (average number of indels that appear in species of interest)
+	- seed : random number from 1 - 1,000,000 to set seed for randomization
+	- library : pathway to R package library where packages will be retrieved/downloaded
+	- output : prefix used for output files
 
 6. Create Environments
 
-The old version of neat requires python 2 to operate so a separate environment will be created for access to Python2
+	The old version of neat requires python 2 to operate so a separate environment will be created for access to Python2
 
-If you do not have `conda` already installed it’s recommended to install via [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge).
+	If you do not have `conda` already installed it’s recommended to install via [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge).
 
 ```
 mamba create -c conda-forge -c bioconda -n SASSEnv bcftools gatk4 samtools
 
 mamba create -c conda-forge -c bioconda -n Python2 python=2
-
+```
 # Running Instructions
 To run SASS on a local login node 
 ```
