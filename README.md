@@ -6,15 +6,17 @@ SASS is a program built to provide reproducible methods for creating artificial 
 
 # Dependencies
 
+- BCFTools
+- GATK
+- SAMTools
+- snakemake v.8
+- R v
+
 **R libraries required to run this code:**
 - ggplot2
 - tidyverse
 
-(libraries will be automatically installed if not already available)
-
-- BCFTools
-- GATK
-- SAMTools
+(R-libraries will be automatically installed if not already available)
 
 # Initial Set Up
 

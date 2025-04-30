@@ -1,33 +1,21 @@
 #This script should be able to both make all the appropriate models and also generate variant VCFs.
-Horses = open('SimulatingHorsesModels.txt','r')
-HorseIDs = Horses.read()
-HorseIDs = HorseIDs.split('\n')
-Empty = HorseIDs.pop()
-Seeds = open('Seedlist.txt','r')
-SeedList = Seeds.read()
-SeedList = SeedList.split('\n')
-Empty = SeedList.pop()
+with open(config['samples'],'r') as f:
+    HorseIDs = [line.strip() for line in f if line.strip()]
+
+
 rule all:
-	input:
-		expand(
-			"/scratch.global/marlo072/Simulating90/Models/GCModels/{horse}GCModel",
-			horse = HorseIDs
-		),
-		expand(
-			"/scratch.global/marlo072/Simulating90/Models/FragLengthModels/{horse}/{horse}.done",
-			horse = HorseIDs
-		),
-		expand(
-			"/scratch.global/marlo072/Simulating90/Models/ErrorModels/{horse}ErrorModel",
-			horse = HorseIDs
-		),
-		expand(
-			"/scratch.global/marlo072/Simulating90/BCFStats/Seed{Seed}InsertionStats.txt",
-			Seed=SeedList
-		)	
-		MakeFinalFiles
-		find_files
+    input:
+        expand(
+            "outputs/Models/GCModels/{sample}GCModel",
+            sample = HorseIDs),
+        #expand(
+        #    "outputs/Models/FragLengthModels/{sample}/{sample}.done",
+        #    sample = HorseIDs),
+        #expand(
+        #    "outputs/Models/ErrorModels/{sample}ErrorModel",
+        #    sample = HorseIDs),
+        #"outputs/BCFStats/all.done"
 
 
-include: "variantvcfs.smk"
-include: "makingmodels.smk"
+include:"rules/makingmodels.smk"
+include: "rules/variantvcfs.smk"

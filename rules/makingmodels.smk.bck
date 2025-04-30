@@ -1,0 +1,83 @@
+rule genomecov:
+	input:
+		bam = "bams/{sample}.bam",
+		bai = "bams/{sample}.bai"
+	output:
+		genomecov = "outputs/Models/genomcov/{sample}.genomecov"
+	params:
+		reference = config['reference']
+	resources:
+		time = 1440,
+		mem_mb = 100000
+	conda:
+		"Python2"
+	shell:
+		'''
+			cd neat-genreads/utilities
+			bedtools genomecov \
+				-d \
+				-ibam {input.bam} \
+				-g {params.reference}\
+				> {output.genomecov}
+		'''
+rule computeGC:
+	input:
+		genomecov = "outputs/Models/genomcov/{sample}.genomecov"
+	output:
+		gcmodel = "outputs/Models/GCModels/{sample}GCModel"
+	params:
+		reference = config['reference']
+	resources:
+		time = 1440,
+		mem_mb = 100000
+	conda:
+		"Python2"
+	shell:
+		'''
+			cd neat-genreads/utilities
+			python computeGC.py \
+				-r {params.reference} \
+				-i {input.genomecov} \
+				-w 50 \
+				-o {output.gcmodel}
+		'''
+
+rule computeFragLength:
+	input:
+		bam = "bams/{sample}.bam",
+		bai = "bams/{sample}.bai"
+	output: 
+		fragmentLength = 'outputs/Models/FragLengthModels/{sample}/{sample}.done',
+	resources:
+		time = 1440,
+		mem_mb = 100000
+    params:
+        directory = 'outputs/Models/FragLength/Models/'
+	conda:
+		"Python2"
+	shell:
+		'''
+			cd {params.directory}{wildcards.sample}
+			samtools view {input.bam} | python neat-genreads/utilities/computeFraglen.py
+			touch {output.fragmentLength}
+		'''
+
+rule computeError:
+	input:
+		fastq1 = "fastqs/{sample_fq}_R1.fastq.gz",
+		fastq2 = "fastqs/{sample_fq}_R2.fastq.gz"
+	output:
+		ErrorModel = "outputs/Models/ErrorModels/{sample_fq}ErrorModel"
+	resources:
+		time = 2880,
+		mem_mb = 100000
+	conda:
+		"Python2"
+	shell:
+		'''
+			python neat-genreads/utilities/genSeqErrorModel.py \
+				-i {input.fastq1} \
+				-i2 {input.fastq2} \
+				-o {output.ErrorModel}
+		'''
+

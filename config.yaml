@@ -1,8 +1,10 @@
-snpvcf : ''
-indelvcf : ''
-simGen: ''
-snps:
-indels: 
-seed:
-library:
-output:
+snpvcf :  ##vcf with snp pool
+indelvcf :  ##vcf with indel pool
+simGen:  ###how many lists of variants to create
+snps: ##how many snps to include in each simulation
+indels:  ##how many indels to include in each simulation
+seed:  ## initial seed for randomization. This is used to randomly select the series of randomized seed that are used for variant selection
+library:  ## location of r library where programs are or will be stored
+output:  ##output prefix used by Rscript for Variant Lists
+ref:  ##path to reference file
+samples:  ##path to file with sample ID list
